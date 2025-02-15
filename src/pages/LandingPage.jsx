@@ -12,7 +12,9 @@ import {
     AppBar,
     Toolbar,
     Stack,
-    IconButton
+    IconButton,
+    TextField,
+    Alert
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
@@ -27,6 +29,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import ChatIcon from '@mui/icons-material/Chat';
+import TimerIcon from '@mui/icons-material/Timer';
+import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AOS from 'aos';
@@ -214,6 +218,134 @@ function LandingPage() {
                             </Button>
                         </motion.div>
                     </Box>
+
+                    {/* Coming Soon Section */}
+                    <Container maxWidth="lg" sx={{ py: 8 }}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <Box
+                                sx={{
+                                    background: alpha(theme.palette.primary.main, 0.05),
+                                    borderRadius: 4,
+                                    p: 4,
+                                    textAlign: 'center',
+                                    border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+                                    position: 'relative',
+                                    overflow: 'hidden'
+                                }}
+                            >
+                                {/* Background Gradient Animation */}
+                                <Box
+                                    component={motion.div}
+                                    animate={{
+                                        background: [
+                                            `linear-gradient(45deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(theme.palette.secondary.main, 0.1)} 100%)`,
+                                            `linear-gradient(225deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(theme.palette.secondary.main, 0.1)} 100%)`,
+                                            `linear-gradient(45deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(theme.palette.secondary.main, 0.1)} 100%)`
+                                        ]
+                                    }}
+                                    transition={{ duration: 5, repeat: Infinity }}
+                                    sx={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        zIndex: 0
+                                    }}
+                                />
+
+                                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                                    <motion.div
+                                        animate={{
+                                            scale: [1, 1.1, 1],
+                                            rotate: [0, 5, -5, 0]
+                                        }}
+                                        transition={{
+                                            duration: 3,
+                                            repeat: Infinity,
+                                            repeatType: "reverse"
+                                        }}
+                                    >
+                                        <TimerIcon sx={{ fontSize: 60, color: theme.palette.primary.main, mb: 2 }} />
+                                    </motion.div>
+
+                                    <Typography
+                                        variant="h3"
+                                        sx={{
+                                            mb: 2,
+                                            background: `-webkit-linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            fontWeight: 'bold'
+                                        }}
+                                    >
+                                        Coming Soon
+                                    </Typography>
+
+                                    <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
+                                        Our AI-powered trading platform is in development. Join the waitlist to get early access!
+                                    </Typography>
+
+                                    <Box
+                                        component="form"
+                                        sx={{
+                                            display: 'flex',
+                                            gap: 2,
+                                            maxWidth: 500,
+                                            mx: 'auto',
+                                            mb: 3
+                                        }}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            variant="outlined"
+                                            placeholder="Enter your email"
+                                            InputProps={{
+                                                startAdornment: <EmailIcon sx={{ mr: 1, color: 'text.secondary' }} />
+                                            }}
+                                            sx={{
+                                                '& .MuiOutlinedInput-root': {
+                                                    background: alpha(theme.palette.background.paper, 0.5),
+                                                    backdropFilter: 'blur(10px)'
+                                                }
+                                            }}
+                                        />
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            sx={{
+                                                background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                                '&:hover': {
+                                                    background: `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`
+                                                }
+                                            }}
+                                        >
+                                            Join Waitlist
+                                        </Button>
+                                    </Box>
+
+                                    <Alert
+                                        severity="warning"
+                                        sx={{
+                                            maxWidth: 600,
+                                            mx: 'auto',
+                                            background: alpha(theme.palette.warning.main, 0.1),
+                                            border: `1px solid ${alpha(theme.palette.warning.main, 0.2)}`
+                                        }}
+                                    >
+                                        <Typography variant="body2">
+                                            Currently in development mode. Do not connect your wallet. We will announce when the platform is live and secure.
+                                        </Typography>
+                                    </Alert>
+                                </Box>
+                            </Box>
+                        </motion.div>
+                    </Container>
 
                     {/* Enhanced Working Mechanism Section */}
                     <Container maxWidth="lg" sx={{ py: 12 }}>

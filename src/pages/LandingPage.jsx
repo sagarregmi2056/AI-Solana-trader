@@ -526,16 +526,16 @@ function LandingPage() {
                                     Advanced AI-powered trading platform for Solana tokens
                                 </Typography>
                                 <Stack direction="row" spacing={2}>
-                                    <IconButton color="primary" component="a" href="#" target="_blank">
+                                    <IconButton color="primary" component="a" href="https://x.com/sagarre89519673" target="_blank">
                                         <TwitterIcon />
                                     </IconButton>
-                                    <IconButton color="primary" component="a" href="#" target="_blank">
+                                    <IconButton color="primary" component="a" href="https://t.me/+q2Ynt3snYXA1ZmE1" target="_blank">
                                         <TelegramIcon />
                                     </IconButton>
-                                    <IconButton color="primary" component="a" href="#" target="_blank">
+                                    <IconButton color="primary" component="a" href="porfolio-cf.vercel.app" target="_blank">
                                         <ChatIcon />
                                     </IconButton>
-                                    <IconButton color="primary" component="a" href="#" target="_blank">
+                                    <IconButton color="primary" component="a" href="https://github.com/sagarregmi2056" target="_blank">
                                         <GitHubIcon />
                                     </IconButton>
                                 </Stack>
@@ -551,7 +551,7 @@ function LandingPage() {
                             <Grid item xs={12} md={4}>
                                 <Typography variant="h6" sx={{ mb: 2 }}>Contact</Typography>
                                 <Typography color="text.secondary" sx={{ mb: 1 }}>
-                                    Email: support@solanaaisniper.com
+                                    Email: sagarregmi2056@gmail.com
                                 </Typography>
                                 <Typography color="text.secondary">
                                     Join our community for updates and support

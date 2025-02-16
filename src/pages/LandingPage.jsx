@@ -32,13 +32,15 @@ import ChatIcon from '@mui/icons-material/Chat';
 import TimerIcon from '@mui/icons-material/Timer';
 import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import WalletButton from '../components/WalletButton';
 import ParticleBackground from '../components/ParticleBackground';
 import ProfitVisualization from '../components/ProfitVisualization';
 import AITokenAnalysis from '../components/AITokenAnalysis';
+import EnhancedParticles from '../components/EnhancedParticles';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 function LandingPage() {
     const theme = useTheme();
@@ -107,19 +109,24 @@ function LandingPage() {
             position: 'relative',
             overflow: 'hidden'
         }}>
-            {/* Particle Background */}
-            <ParticleBackground />
+            {/* Background Elements */}
+            <EnhancedParticles />
+            <AnimatedBackground />
 
             {/* Gradient Overlay */}
-            <Box sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: `linear-gradient(45deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(theme.palette.secondary.main, 0.1)} 100%)`,
-                zIndex: 1
-            }} />
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: `linear-gradient(45deg, 
+                        ${alpha(theme.palette.primary.main, 0.1)} 0%, 
+                        ${alpha(theme.palette.secondary.main, 0.1)} 100%)`,
+                    zIndex: 1
+                }}
+            />
 
             {/* Content Container */}
             <Box sx={{ position: 'relative', zIndex: 2 }}>
@@ -628,6 +635,123 @@ function LandingPage() {
                     </motion.div>
 
                     <AITokenAnalysis />
+                </Container>
+
+                {/* About Section with Clean Design */}
+                <Container maxWidth="lg" sx={{ py: 12 }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <Box
+                            sx={{
+                                textAlign: 'center',
+                                position: 'relative',
+                                zIndex: 2,
+                                mb: 8
+                            }}
+                        >
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    mb: 4,
+                                    background: `-webkit-linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                About SolanaAI Trader
+                            </Typography>
+
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    maxWidth: '800px',
+                                    mx: 'auto',
+                                    p: 4,
+                                }}
+                            >
+                                {/* Glowing background effect */}
+                                <Box
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        width: '100%',
+                                        height: '100%',
+                                        background: `radial-gradient(circle, ${alpha(theme.palette.primary.main, 0.1)} 0%, transparent 70%)`,
+                                        filter: 'blur(40px)',
+                                        zIndex: -1
+                                    }}
+                                />
+
+                                <Typography
+                                    variant="h5"
+                                    sx={{
+                                        color: 'text.secondary',
+                                        lineHeight: 1.8,
+                                        fontWeight: 300,
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    Experience the future of Solana trading with our advanced AI-powered platform.
+                                    We combine cutting-edge artificial intelligence with real-time market analysis
+                                    to provide you with secure, intelligent, and efficient trading solutions.
+                                </Typography>
+
+                                {/* Animated underline */}
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: '100px' }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 1, delay: 0.5 }}
+                                    style={{
+                                        height: '2px',
+                                        background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                        margin: '2rem auto',
+                                    }}
+                                />
+
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: alpha(theme.palette.text.primary, 0.7),
+                                        mt: 3,
+                                        fontStyle: 'italic'
+                                    }}
+                                >
+                                    Currently in development mode - Join our waitlist for early access
+                                </Typography>
+                            </Box>
+
+                            {/* Decorative elements */}
+                            <Box
+                                component={motion.div}
+                                animate={{
+                                    rotate: [0, 360]
+                                }}
+                                transition={{
+                                    duration: 20,
+                                    repeat: Infinity,
+                                    ease: "linear"
+                                }}
+                                sx={{
+                                    position: 'absolute',
+                                    top: -50,
+                                    right: -50,
+                                    width: '200px',
+                                    height: '200px',
+                                    border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+                                    borderRadius: '50%',
+                                    zIndex: -1
+                                }}
+                            />
+                        </Box>
+                    </motion.div>
                 </Container>
 
                 {/* Footer */}

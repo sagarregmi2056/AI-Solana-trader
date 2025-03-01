@@ -6,7 +6,7 @@ export const useWebSocketConnection = (onMessage) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:8080');
+        const ws = new WebSocket('ws://147.182.229.96:8080');
 
         ws.onopen = () => {
             setConnected(true);

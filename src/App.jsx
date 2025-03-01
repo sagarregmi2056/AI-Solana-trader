@@ -1,79 +1,68 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { ConnectionProvider } from '@solana/wallet-adapter-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import CssBaseline from '@mui/material/CssBaseline';
+import { endpoint, walletConfig } from './config/wallet';
+import ErrorBoundary from './components/ErrorBoundary';
+import { darkTheme } from './theme';
+
+// Import your components
 import Layout from './components/Layout';
+import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import TokenMonitor from './pages/TokenMonitor';
 import Settings from './pages/Settings';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from '@solana/wallet-adapter-react';
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
-import LandingPage from './pages/LandingPage';
 
-// Import styles directly
+// Import wallet styles
 import '@solana/wallet-adapter-react-ui/styles.css';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#7C4DFF',
-    },
-    secondary: {
-      main: '#69F0AE',
-    },
-  },
-});
-
+// Create a client
 const queryClient = new QueryClient();
 
-function App() {
-  const network = WalletAdapterNetwork.Mainnet;
-  const endpoint = clusterApiUrl(network);
-  const wallets = [
-    new PhantomWalletAdapter(),
-    new SolflareWalletAdapter(),
-  ];
-
+function AppContent() {
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={darkTheme}>
-            <CssBaseline />
-            <Router>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/dashboard" element={
-                  <Layout>
-                    <Dashboard />
-                  </Layout>
-                } />
-                <Route path="/monitor" element={
-                  <Layout>
-                    <TokenMonitor />
-                  </Layout>
-                } />
-                <Route path="/settings" element={
-                  <Layout>
-                    <Settings />
-                  </Layout>
-                } />
-              </Routes>
-            </Router>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={
+          <Layout>
+            <Dashboard />
+          </Layout>
+        } />
+        <Route path="/monitor" element={
+          <Layout>
+            <TokenMonitor />
+          </Layout>
+        } />
+        <Route path="/settings" element={
+          <Layout>
+            <Settings />
+          </Layout>
+        } />
+      </Routes>
+    </Router>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ConnectionProvider endpoint={endpoint}>
+          <WalletProvider {...walletConfig}>
+            <WalletModalProvider>
+              <ThemeProvider theme={darkTheme}>
+                <CssBaseline />
+                <AppContent />
+              </ThemeProvider>
+            </WalletModalProvider>
+          </WalletProvider>
+        </ConnectionProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

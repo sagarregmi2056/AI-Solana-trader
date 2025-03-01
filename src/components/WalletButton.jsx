@@ -1,34 +1,32 @@
 import React from 'react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import {
-    ConnectionProvider,
-    WalletProvider,
-} from '@solana/wallet-adapter-react';
-import {
-    PhantomWalletAdapter,
-    SolflareWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+import { useCustomWallet } from '../hooks/useWallet';
+import { Button, CircularProgress } from '@mui/material';
 
-// Import styles directly
-import '@solana/wallet-adapter-react-ui/styles.css';
+const WalletButton = () => {
+    const { isLoading, error, isReady } = useCustomWallet();
 
-function WalletButton() {
-    const network = WalletAdapterNetwork.Mainnet;
-    const endpoint = clusterApiUrl(network);
-    const wallets = [
-        new PhantomWalletAdapter(),
-        new SolflareWalletAdapter(),
-    ];
+    if (isLoading) {
+        return (
+            <Button disabled variant="contained">
+                <CircularProgress size={20} />
+            </Button>
+        );
+    }
 
-    return (
-        <ConnectionProvider endpoint={endpoint}>
-            <WalletProvider wallets={wallets} autoConnect>
-                <WalletMultiButton />
-            </WalletProvider>
-        </ConnectionProvider>
-    );
-}
+    if (error) {
+        return (
+            <Button
+                color="error"
+                variant="contained"
+                onClick={() => window.location.reload()}
+            >
+                Wallet Error - Click to Retry
+            </Button>
+        );
+    }
+
+    return <WalletMultiButton />;
+};
 
 export default WalletButton; 

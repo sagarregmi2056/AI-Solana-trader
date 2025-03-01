@@ -41,6 +41,11 @@ import ProfitVisualization from '../components/ProfitVisualization';
 import AITokenAnalysis from '../components/AITokenAnalysis';
 import EnhancedParticles from '../components/EnhancedParticles';
 import AnimatedBackground from '../components/AnimatedBackground';
+import TradingVisualizer from '../components/TradingVisualizer';
+
+
+
+
 
 function LandingPage() {
     const theme = useTheme();
@@ -110,8 +115,8 @@ function LandingPage() {
             overflow: 'hidden'
         }}>
             {/* Background Elements */}
-            <EnhancedParticles />
-            <AnimatedBackground />
+            <TradingVisualizer />
+
 
             {/* Gradient Overlay */}
             <Box

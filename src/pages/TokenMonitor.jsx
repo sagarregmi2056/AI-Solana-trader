@@ -288,7 +288,7 @@ const TokenMonitor = () => {
 
     const stopAutoTrading = async (token) => {
         try {
-            await fetch(`http://localhost:3000/api/trading/stop/${token.address}`, {
+            await fetch(`http://147.182.229.96:3000/api/trading/stop/${token.address}`, {
                 method: 'POST'
             });
 

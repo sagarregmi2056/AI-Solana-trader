@@ -72,7 +72,7 @@ function Settings() {
 
     const loadSettings = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/settings', {
+            const response = await fetch('http://147.182.229.96:3000/api/settings', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -121,7 +121,7 @@ function Settings() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/settings', {
+            const response = await fetch('http://147.182.229.96:3000/api/settings', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

@@ -39,7 +39,7 @@ const TokenMonitor = () => {
     const fetchTrendingTokens = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:3000/api/tokens/trending');
+            const response = await fetch('http://147.182.229.96:3000/api/tokens/trending');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -74,7 +74,7 @@ const TokenMonitor = () => {
 
     const loadSettings = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/settings');
+            const response = await fetch('http://147.182.229.96:3000/api/settings');
             if (response.ok) {
                 const data = await response.json();
                 setSettings(data);
@@ -93,8 +93,8 @@ const TokenMonitor = () => {
             console.log('Fetching analysis for token:', token.address);
 
             const [analysisResponse, aiAnalysisResponse] = await Promise.all([
-                fetch(`http://localhost:3000/api/tokens/${token.address}/analysis`),
-                fetch(`http://localhost:3000/api/tokens/${token.address}/ai-analysis`)
+                fetch(`http://147.182.229.96:3000/api/tokens/${token.address}/analysis`),
+                fetch(`http://147.182.229.96:3000/api/tokens/${token.address}/ai-analysis`)
             ]);
 
             console.log('Analysis response status:', analysisResponse.status);
@@ -259,7 +259,7 @@ const TokenMonitor = () => {
 
     const startAutoTrading = async (token) => {
         try {
-            const response = await fetch('http://localhost:3000/api/trading/start', {
+            const response = await fetch('http://147.182.229.96:3000/api/trading/start', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

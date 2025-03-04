@@ -56,7 +56,9 @@ const AITokenAnalysis = () => {
             try {
                 new Audio('/notification.mp3').play();
             } catch (error) {
-                console.log('Notification sound not available');
+                // console.log('Notification sound not available');
+
+
             }
         }, 8000);
 

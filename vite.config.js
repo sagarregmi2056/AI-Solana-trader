@@ -7,10 +7,11 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': 'http://147.182.229.96:3000',
+      '/api': 'https://nbackend.numenex.com',
       '/ws': {
-        target: 'ws://147.182.229.96:8080',
+        target: 'wss://wss.numenex.com',
         ws: true,
+       
       }
     }
   },

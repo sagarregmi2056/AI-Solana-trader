@@ -24,7 +24,7 @@ const TokenAnalysis = ({ tokenAddress, onRemove }) => {
             try {
                 setLoading(true);
                 setError(null);
-                console.log('Fetching analysis for:', tokenAddress);
+                // console.log('Fetching analysis for:', tokenAddress);
                 const data = await TokenService.getTokenAnalysis(tokenAddress);
                 if (isMounted) {
                     setAnalysis(data);

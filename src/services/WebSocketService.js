@@ -8,7 +8,7 @@ class WebSocketService {
         this.reconnectTimeout = 5000;
         this.listeners = new Set();
         this.isConnecting = false;
-        this.wsUrl = 'ws://147.182.229.96:8080';
+        this.wsUrl = WS_URL;
     }
 
     connect() {

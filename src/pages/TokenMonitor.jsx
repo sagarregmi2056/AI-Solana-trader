@@ -44,7 +44,7 @@ const TokenMonitor = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log('Fetched tokens:', data);
+            // console.log('Fetched tokens:', data);
             if (data && Array.isArray(data.data)) {
                 setTrendingTokens(data.data);
             } else {
@@ -90,21 +90,21 @@ const TokenMonitor = () => {
             setAnalysisLoading(true);
             setAnalysisError(null);
 
-            console.log('Fetching analysis for token:', token.address);
+            // console.log('Fetching analysis for token:', token.address);
 
             const [analysisResponse, aiAnalysisResponse] = await Promise.all([
                 fetch(`${API_URL}/api/tokens/${token.address}/analysis`),
                 fetch(`${API_URL}/api/tokens/${token.address}/ai-analysis`)
             ]);
 
-            console.log('Analysis response status:', analysisResponse.status);
-            console.log('AI Analysis response status:', aiAnalysisResponse.status);
+            // console.log('Analysis response status:', analysisResponse.status);
+            // console.log('AI Analysis response status:', aiAnalysisResponse.status);
 
             const analysisResult = await analysisResponse.json();
             const aiAnalysisResult = await aiAnalysisResponse.json();
 
-            console.log('Analysis data received:', analysisResult);
-            console.log('AI Analysis data received:', aiAnalysisResult);
+            // console.log('Analysis data received:', analysisResult);
+            // console.log('AI Analysis data received:', aiAnalysisResult);
 
             if (!analysisResult.data || !aiAnalysisResult.data) {
                 throw new Error('Invalid data format received');
@@ -327,7 +327,7 @@ const TokenMonitor = () => {
         try {
             const data = typeof message === 'string' ? JSON.parse(message) : message;
             if (data.type === 'token_update' && Array.isArray(data.data)) {
-                console.log('Received token update:', data.data);
+                // console.log('Received token update:', data.data);
                 setTrendingTokens(data.data);
             }
         } catch (error) {
@@ -372,13 +372,22 @@ const TokenMonitor = () => {
                             {analysisError}
                         </Alert>
                     ) : analysisData && (
-                        <Box>
+                        <Box sx={{ overflow: 'auto' }}>
                             {/* Price Information */}
                             <Box sx={{ mb: 3 }}>
                                 <Typography variant="subtitle1" color="text.secondary">
                                     Price & Volume
                                 </Typography>
-                                <Stack direction="row" spacing={2} mt={1}>
+                                <Stack
+                                    direction={{ xs: 'column', sm: 'row' }}
+                                    spacing={2}
+                                    mt={1}
+                                    sx={{
+                                        '& .MuiChip-root': {
+                                            width: { xs: '100%', sm: 'auto' }
+                                        }
+                                    }}
+                                >
                                     <Chip
                                         icon={<LocalAtm />}
                                         label={`$${analysisData.tokenMetrics.price?.toFixed(6) || '0.00'}`}
@@ -405,7 +414,11 @@ const TokenMonitor = () => {
                             <Grid container spacing={2}>
                                 {analysisData.analysis.map((item, index) => (
                                     <Grid item xs={12} sm={6} key={index}>
-                                        <Paper elevation={1} sx={{ p: 2 }}>
+                                        <Paper elevation={1} sx={{
+                                            p: 2,
+                                            height: '100%',
+                                            overflow: 'auto'
+                                        }}>
                                             <Typography variant="subtitle1" color="primary" gutterBottom>
                                                 {item.category}
                                             </Typography>
@@ -430,22 +443,25 @@ const TokenMonitor = () => {
                             </Grid>
 
                             {/* Recommendations */}
-                            {analysisData.recommendations && (
-                                <Box sx={{ mt: 3 }}>
-                                    <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-                                        Recommendations
-                                    </Typography>
-                                    <Alert severity="info">
-                                        <List dense>
-                                            {analysisData.recommendations.map((rec, index) => (
-                                                <ListItem key={index}>
-                                                    <ListItemText primary={rec} />
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    </Alert>
-                                </Box>
-                            )}
+                            <Box sx={{
+                                mt: 3,
+                                '& .MuiList-root': {
+                                    px: { xs: 0, sm: 2 }
+                                }
+                            }}>
+                                <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+                                    Recommendations
+                                </Typography>
+                                <Alert severity="info">
+                                    <List dense>
+                                        {analysisData.recommendations.map((rec, index) => (
+                                            <ListItem key={index}>
+                                                <ListItemText primary={rec} />
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </Alert>
+                            </Box>
                         </Box>
                     )}
                 </DialogContent>
@@ -507,6 +523,8 @@ const TokenMonitor = () => {
                                     sx={{
                                         mb: 1,
                                         borderRadius: 1,
+                                        flexDirection: { xs: 'column', sm: 'row' },
+                                        alignItems: { xs: 'flex-start', sm: 'center' },
                                         '&:hover': {
                                             backgroundColor: alpha(theme.palette.primary.main, 0.1)
                                         }
@@ -524,18 +542,24 @@ const TokenMonitor = () => {
                                             </Typography>
                                         }
                                     />
-                                    <ListItemSecondaryAction>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        gap: 1,
+                                        mt: { xs: 1, sm: 0 },
+                                        width: { xs: '100%', sm: 'auto' }
+                                    }}>
                                         <Chip
                                             icon={token.priceChange24h > 0 ? <TrendingUp /> : <TrendingDown />}
                                             label={`${parseFloat(token.priceChange24h).toFixed(2)}%`}
                                             color={token.priceChange24h > 0 ? "success" : "error"}
-                                            sx={{ mr: 1 }}
+                                            size="small"
                                         />
                                         <Chip
                                             label={`Vol: $${parseInt(token.volume24h).toLocaleString()}`}
                                             variant="outlined"
+                                            size="small"
                                         />
-                                    </ListItemSecondaryAction>
+                                    </Box>
                                 </ListItem>
                             ))}
                         </List>

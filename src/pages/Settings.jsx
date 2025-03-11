@@ -48,16 +48,16 @@ function Settings() {
             );
 
             if (!publicKey) {
-                console.log('No public key available');
+                // console.log('No public key available');
                 return;
             }
 
-            console.log('Fetching balance for wallet:', publicKey.toString());
+            // console.log('Fetching balance for wallet:', publicKey.toString());
             const balance = await connection.getBalance(publicKey);
-            console.log('Raw balance:', balance);
+            // console.log('Raw balance:', balance);
 
             const solBalance = balance / LAMPORTS_PER_SOL;
-            console.log('SOL balance:', solBalance);
+            // console.log('SOL balance:', solBalance);
 
             setBalance(parseFloat(solBalance.toFixed(5)));
         } catch (error) {
@@ -86,7 +86,7 @@ function Settings() {
             }
 
             const data = await response.json();
-            console.log('Loaded settings:', data);
+            // console.log('Loaded settings:', data);
             setSettings(data);
         } catch (error) {
             console.error('Failed to load settings:', error);
@@ -139,7 +139,7 @@ function Settings() {
             }
 
             const result = await response.json();
-            console.log('Settings saved:', result);
+            // console.log('Settings saved:', result);
 
             setSnackbar({
                 open: true,

@@ -17,7 +17,7 @@ class WebSocketService {
         }
 
         this.isConnecting = true;
-        console.log('Connecting to WebSocket...', this.wsUrl);
+        // console.log('Connecting to WebSocket...', this.wsUrl);
 
         try {
             this.ws = new WebSocket(this.wsUrl);
